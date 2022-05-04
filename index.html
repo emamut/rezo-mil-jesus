@@ -11,26 +11,91 @@
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
       crossorigin="anonymous"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Merriweather&family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <div class="container" id="app">
-      <div class="row">
+    <div class="container-fluid" id="app" v-cloak>
+      <header class="row py-4 bg-light">
         <div class="col text-center">
-          <h1>Rezo de los Mil Jesús</h1>
+          <h1 class="font-merriweather">Rezo de los Mil Jesús</h1>
         </div>
-      </div>
-      <div class="row mt-5">
-        <div class="col text-center"><h5>{{ count }}</h5></div>
-      </div>
+      </header>
 
-      <div class="row mt-5">
-        <div class="col text-center">
-          <button class="btn btn-primary" @click="count++">Contar</button>
+      <main>
+        <div class="row justify-content-center mt-5">
+          <div class="col-md-8">
+            <div class="alert alert-warning" role="alert">
+              <i class="bi bi-info-circle"></i> A simple success alert—check it
+              out!
+            </div>
+          </div>
+          <div class="w-100"></div>
+          <div class="col-md-6 text-center mt-3">
+            <h2>{{ count }} <span class="text-muted fs-5">Jesús</span></h2>
+          </div>
         </div>
-      </div>
+        <div class="row mt-5">
+          <div class="col text-center">
+            <button
+              class="btn btn-primary btn-lg"
+              @click="count++"
+              v-if="count < 100"
+            >
+              {{count == 0 ? 'Iniciar' : 'Contar'}}
+            </button>
+            <button
+              class="btn btn-outline-secondary btn-lg ms-3"
+              @click="count = 0"
+            >
+              Reiniciar
+            </button>
+          </div>
+        </div>
+      </main>
+
+      <footer class="row justify-content-center bg-light mt-5 py-4">
+        <div class="col-md-10">
+          <p class="text-muted text-center">
+            <small
+              >Elaborado con <i class="bi bi-heart-fill"></i> por
+              <a href="https://www.emamut.dev" target="_blank">emamut</a> -
+              Apoyanos en <i class="bi bi-github"></i>&nbsp;
+              <a href="https://github.com/emamut/rezo-mil-jesus" target="_blank"
+                >Github</a
+              >
+            </small>
+          </p>
+          <small class="text-muted"
+            ><strong>Fuentes: </strong>
+            <a
+              href="https://www.eluniversal.com.co/cultural/hoy-es-el-dia-de-la-santa-cruz-esta-es-la-historia-de-los-mil-jesus-CK1095040"
+              target="_blank"
+              >Hoy es el Día de la Santa Cruz, esta es la historia de los mil
+              Jesús - El Universal</a
+            >
+            //
+            <a
+              href="https://www.organizacionlaesperanza.com/blog/3-de-mayo-dia-de-la-santa-cruz/"
+              target="_blank"
+              >3 de Mayo: Dia de la Santa Cruz - Organización La Esperanza</a
+            >
+          </small>
+        </div>
+      </footer>
     </div>
   </body>
   <script src="https://unpkg.com/vue@3"></script>
 
-  <script src="./app.js"></script>
+  <script src="./js/app.js"></script>
 </html>
