@@ -1,11 +1,11 @@
+[v-cloak] {
+  display: none;
+}
+
 body {
   font-family: 'Roboto', sans-serif;
 }
 
 .font-merriweather {
   font-family: 'Merriweather', serif;
-}
-
-[v-cloak] {
-  display: none;
 }

@@ -6,6 +6,9 @@ Vue.createApp({
       buttonText: 'Iniciar',
     };
   },
+  components: {
+    'messages-component': messagesComponent,
+  },
   created() {
     this.prayers = [];
   },
