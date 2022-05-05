@@ -2,7 +2,7 @@ Vue.createApp({
   data() {
     return {
       count: 0,
-      prayers: [],
+      each: 10,
       buttonText: 'Iniciar',
     };
   },

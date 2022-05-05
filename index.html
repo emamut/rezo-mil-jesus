@@ -33,21 +33,32 @@
       </header>
 
       <main>
-        <div class="row justify-content-center mt-5">
+        <div class="row justify-content-center mt-4">
           <div class="col-md-8">
-            <messages-component></messages-component>
+            <p>
+              Esta devoción consiste en invocar el Nombre de Jesús mil veces
+              para derrotar de las casas a las huestes del mal.
+            </p>
+            <div class="d-inline-flex flex-row">
+              <strong>Elija cada cuanto aparecen las oraciones</strong>
+              <select v-model="each" class="form-select w-25">
+                <option value="10">10</option>
+                <option value="100">100</option>
+              </select>
+            </div>
           </div>
-          <div class="w-100"></div>
-          <div class="col-md-6 text-center mt-3">
+        </div>
+        <div class="row justify-content-center mt-5">
+          <div class="col-md-6 text-center">
             <h2>{{ count }} <span class="text-muted fs-5">Jesús</span></h2>
           </div>
         </div>
-        <div class="row mt-5">
+        <div class="row mt-4">
           <div class="col text-center">
             <button
               class="btn btn-primary btn-lg"
               @click="count++"
-              v-if="count < 100"
+              v-if="count < 1000"
             >
               {{count == 0 ? 'Iniciar' : 'Contar'}}
             </button>
@@ -57,6 +68,14 @@
             >
               Reiniciar
             </button>
+          </div>
+        </div>
+        <div class="row justify-content-center mt-4">
+          <div class="col-md-8">
+            <messages-component
+              :count="count"
+              :each="each"
+            ></messages-component>
           </div>
         </div>
       </main>
