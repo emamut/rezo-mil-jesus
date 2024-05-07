@@ -2,7 +2,7 @@ Vue.createApp({
   data() {
     return {
       count: 0,
-      each: 10,
+      each: 50,
       buttonText: 'Iniciar',
     };
   },
