@@ -40,8 +40,8 @@
               Esta devoción consiste en invocar el Nombre de Jesús mil veces
               para derrotar de las casas a las huestes del mal.
             </p>
-            <div class="d-inline-flex flex-row">
-              <strong>Elija cada cuanto aparecen las oraciones</strong>
+            <div class="d-inline-flex flex-row w-75">
+              <strong>Elija cada cuanto aparecen las oraciones</strong>&nbsp;
               <select v-model="each" class="form-select form-select-sm w-25">
                 <option value="10">10</option>
                 <option value="20">20</option>
@@ -73,7 +73,7 @@
             </button>
             <button
               class="btn btn-outline-secondary btn-lg ms-3"
-              @click="count = 0"
+              @click="restartPray()"
             >
               Reiniciar
             </button>

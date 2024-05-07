@@ -9,6 +9,13 @@ Vue.createApp({
   components: {
     'messages-component': messagesComponent,
   },
+  methods: {
+    restartPray() {
+      if (confirm('¿Está seguro/a que desea reiniciar el rezo?')) {
+        this.count = 0;
+      }
+    },
+  },
   created() {
     this.prayers = [];
   },
