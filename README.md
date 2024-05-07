@@ -8,7 +8,7 @@
 
 Technologies used in the project:
 
-- Vue
+- Vue JS
 - Bootstrap
 - Bootstrap Icons
 - Google Fonts
