@@ -12,3 +12,4 @@ Technologies used in the project:
 - Bootstrap
 - Bootstrap Icons
 - Google Fonts
+- PNPM
