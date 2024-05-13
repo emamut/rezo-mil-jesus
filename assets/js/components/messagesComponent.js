@@ -6,7 +6,6 @@ const messagesComponent = {
       alertClass: '',
       iconClass: '',
       alertText: '',
-      message: '',
       currentPrayer: 0,
       prayers: [],
     };
