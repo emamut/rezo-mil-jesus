@@ -19,7 +19,7 @@ const messagesComponent = {
       if (newValue > 0) {
         this.display = false;
       }
-      if (newValue % this.each == 0) {
+      if (newValue % this.each == 0 && newValue !== 0) {
         this.currentPrayer++;
 
         if (this.currentPrayer == this.prayers.length) this.currentPrayer = 1;
@@ -43,6 +43,7 @@ const messagesComponent = {
   },
   methods: {
     initialValues() {
+      this.currentPrayer = 0;
       this.alertText =
         'El ritual de los mil Jesús comienza rezando el acto de contrición para luego seguir con un Padre Nuestro';
       this.alertClass = 'success';
