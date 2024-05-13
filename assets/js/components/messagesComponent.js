@@ -12,9 +12,6 @@ const messagesComponent = {
   },
   watch: {
     count(newValue) {
-      // TODO: Fix display first message issue
-      console.log('🚀 ~ count ~ newValue:', newValue);
-
       if (newValue === 0) this.initialValues();
       if (newValue > 0) {
         this.display = false;
