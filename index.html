@@ -26,68 +26,66 @@
   </head>
   <body>
     <div class="container d-flex flex-column" id="app" v-cloak>
-      <header class="row bg-light">
-        <div class="col text-center">
-          <h1 class="font-merriweather d-none">Rezo de los Mil Jesús</h1>
-          <img src="./assets/img/cover.png" alt="" class="img-fluid" />
+      <div class="row mt-md-5">
+        <div class="col-md-6">
+          <img src="/assets/img/logo.png" alt="" class="img-fluid" />
         </div>
-      </header>
-
-      <main>
-        <div class="row justify-content-center mt-4">
-          <div class="col-md-8">
-            <p>
-              Esta devoción consiste en invocar el Nombre de Jesús mil veces
-              para derrotar de las casas a las huestes del mal.
-            </p>
-            <div class="d-inline-flex flex-row w-75">
-              <strong>Elija cada cuanto aparecen las oraciones</strong>&nbsp;
-              <select v-model="each" class="form-select form-select-sm w-25">
-                <option value="10">10</option>
-                <option value="20">20</option>
-                <option value="30">30</option>
-                <option value="40">40</option>
-                <option value="50">50</option>
-                <option value="60">60</option>
-                <option value="70">70</option>
-                <option value="80">80</option>
-                <option value="90">90</option>
-                <option value="100">100</option>
-              </select>
+        <div class="col-md-6">
+          <div class="row justify-content-center mt-4">
+            <div class="col">
+              <p>
+                Esta devoción consiste en invocar el Nombre de Jesús mil veces
+                para derrotar de las casas a las huestes del mal.
+              </p>
+              <div class="d-inline-flex flex-row w-75">
+                <strong>Elija cada cuanto aparecen las oraciones</strong>&nbsp;
+                <select v-model="each" class="form-select form-select-sm w-25">
+                  <option value="10">10</option>
+                  <option value="20">20</option>
+                  <option value="30">30</option>
+                  <option value="40">40</option>
+                  <option value="50">50</option>
+                  <option value="60">60</option>
+                  <option value="70">70</option>
+                  <option value="80">80</option>
+                  <option value="90">90</option>
+                  <option value="100">100</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row justify-content-center mt-5">
+            <div class="col-md-6 text-center">
+              <h2>{{ count }} <span class="text-muted fs-5">Jesús</span></h2>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col text-center">
+              <button
+                class="btn btn-primary btn-lg"
+                @click="count++"
+                v-if="count < 1000"
+              >
+                {{count == 0 ? 'Iniciar' : 'Contar'}}
+              </button>
+              <button
+                class="btn btn-outline-secondary btn-lg ms-3"
+                @click="restartPray()"
+              >
+                Reiniciar
+              </button>
+            </div>
+          </div>
+          <div class="row justify-content-center mt-4">
+            <div class="col">
+              <messages-component
+                :count="count"
+                :each="each"
+              ></messages-component>
             </div>
           </div>
         </div>
-        <div class="row justify-content-center mt-5">
-          <div class="col-md-6 text-center">
-            <h2>{{ count }} <span class="text-muted fs-5">Jesús</span></h2>
-          </div>
-        </div>
-        <div class="row mt-4">
-          <div class="col text-center">
-            <button
-              class="btn btn-primary btn-lg"
-              @click="count++"
-              v-if="count < 1000"
-            >
-              {{count == 0 ? 'Iniciar' : 'Contar'}}
-            </button>
-            <button
-              class="btn btn-outline-secondary btn-lg ms-3"
-              @click="restartPray()"
-            >
-              Reiniciar
-            </button>
-          </div>
-        </div>
-        <div class="row justify-content-center mt-4">
-          <div class="col-md-8">
-            <messages-component
-              :count="count"
-              :each="each"
-            ></messages-component>
-          </div>
-        </div>
-      </main>
+      </div>
 
       <footer class="row justify-content-center bg-light mt-auto py-4">
         <div class="col-md-10 text-center">
