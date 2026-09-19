@@ -1,12 +1,705 @@
+/* ==========================================================================
+   REZO DE LOS MIL JESÚS - DEVOCIÓN DE LA SANTA CRUZ
+   Estilos y variables de diseño litúrgico, sereno y accesible
+   ========================================================================== */
+
+:root {
+  /* Paleta Modo Claro (Pergamino y Terracota) */
+  --font-serif-title: 'Cinzel', serif;
+  --font-serif-body: 'Merriweather', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  --bg-page: #f8f6f2;
+  --bg-page-gradient: radial-gradient(circle at 50% 0%, #fefdfb 0%, #f6f2ea 100%);
+  --bg-card: #ffffff;
+  --bg-card-glass: rgba(255, 255, 255, 0.85);
+  --bg-badge: #f4ede2;
+  --bg-counter: #fdfaf6;
+  --border-color: rgba(197, 160, 89, 0.28);
+  --border-focus: #b84c3b;
+
+  --text-main: #2b231d;
+  --text-muted: #6e6459;
+  --text-gold: #9e7526;
+
+  --accent-primary: #852d21;
+  --accent-primary-hover: #6d2218;
+  --accent-primary-active: #571b13;
+  --accent-primary-glow: rgba(133, 45, 33, 0.25);
+
+  --accent-gold: #c5a059;
+  --accent-gold-soft: rgba(197, 160, 89, 0.15);
+  --accent-gold-hover: #b48e45;
+
+  --progress-track: #e9e3d7;
+  --progress-fill: #852d21;
+  --progress-glow: rgba(133, 45, 33, 0.2);
+
+  --shadow-sm: 0 2px 8px rgba(43, 35, 29, 0.04);
+  --shadow-md: 0 8px 24px rgba(43, 35, 29, 0.08);
+  --shadow-lg: 0 16px 36px rgba(43, 35, 29, 0.12);
+  --shadow-count: 0 10px 25px rgba(133, 45, 33, 0.2);
+
+  --card-radius: 20px;
+  --button-radius: 14px;
+}
+
+[data-bs-theme="dark"] {
+  /* Paleta Modo Noche / Vela */
+  --bg-page: #151311;
+  --bg-page-gradient: radial-gradient(circle at 50% 0%, #201c18 0%, #131110 100%);
+  --bg-card: #201c18;
+  --bg-card-glass: rgba(32, 28, 24, 0.9);
+  --bg-badge: #2c2621;
+  --bg-counter: #1a1613;
+  --border-color: rgba(212, 175, 55, 0.2);
+  --border-focus: #e5735f;
+
+  --text-main: #ede5da;
+  --text-muted: #a3978a;
+  --text-gold: #e5be65;
+
+  --accent-primary: #b84c3b;
+  --accent-primary-hover: #cc5644;
+  --accent-primary-active: #a13f2f;
+  --accent-primary-glow: rgba(184, 76, 59, 0.35);
+
+  --accent-gold: #d4af37;
+  --accent-gold-soft: rgba(212, 175, 55, 0.12);
+  --accent-gold-hover: #e5be65;
+
+  --progress-track: #2e2822;
+  --progress-fill: #e5735f;
+  --progress-glow: rgba(229, 115, 95, 0.25);
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.25);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 16px 36px rgba(0, 0, 0, 0.6);
+  --shadow-count: 0 10px 25px rgba(184, 76, 59, 0.35);
+}
+
+/* ==========================================================================
+   Base & Reset
+   ========================================================================== */
+
 [v-cloak] {
   display: none !important;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  font-family: 'Roboto', sans-serif;
-  background-color: #fbfaf8;
+  font-family: var(--font-sans);
+  background-color: var(--bg-page);
+  background-image: var(--bg-page-gradient);
+  background-attachment: fixed;
+  color: var(--text-main);
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  transition: background-color 0.35s ease, color 0.35s ease;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Tipografía especializada */
+.font-cinzel {
+  font-family: var(--font-serif-title);
+  letter-spacing: 0.04em;
 }
 
 .font-merriweather {
-  font-family: 'Merriweather', serif;
+  font-family: var(--font-serif-body);
+}
+
+/* Enlaces */
+a {
+  color: var(--accent-primary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--accent-primary-hover);
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   Barra Superior de Navegación / Encabezado
+   ========================================================================== */
+
+.app-navbar {
+  background: var(--bg-card-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 1020;
+  padding: 0.75rem 0;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.nav-brand-title {
+  font-family: var(--font-serif-title);
+  font-weight: 700;
+  font-size: 1.2rem;
+  letter-spacing: 0.05em;
+  color: var(--accent-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav-brand-subtitle {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.nav-action-btn {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  border-radius: 10px;
+  padding: 0.4rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all 0.2s ease;
+}
+
+.nav-action-btn:hover {
+  background: var(--accent-gold-soft);
+  border-color: var(--accent-gold);
+  color: var(--text-main);
+}
+
+.nav-action-btn.active {
+  background: var(--accent-gold-soft);
+  border-color: var(--accent-gold);
+  color: var(--text-gold);
+}
+
+/* ==========================================================================
+   Contenedor y Tarjetas Principales
+   ========================================================================== */
+
+.app-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--card-radius);
+  box-shadow: var(--shadow-md);
+  padding: 1.75rem;
+  transition: all 0.3s ease;
+}
+
+/* Emblema devocional y cabecera central */
+.devotional-hero {
+  text-align: center;
+  margin-bottom: 1.75rem;
+  position: relative;
+}
+
+.sacred-cross-emblem {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm), 0 0 24px var(--accent-gold-soft);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-primary);
+  margin-bottom: 0.75rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sacred-cross-emblem:hover {
+  transform: scale(1.05);
+  box-shadow: var(--shadow-md), 0 0 32px var(--accent-gold-soft);
+}
+
+.devotional-hero-title {
+  font-family: var(--font-serif-title);
+  font-size: 2.1rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--accent-primary);
+  margin-bottom: 0.25rem;
+}
+
+.devotional-hero-subtitle {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-gold);
+  margin-bottom: 0.75rem;
+}
+
+.devotional-hero-quote {
+  font-family: var(--font-serif-body);
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  max-width: 540px;
+  margin: 0 auto 1rem;
+  line-height: 1.6;
+}
+
+/* Contenedor central acotado */
+.main-prayer-container {
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ==========================================================================
+   Indicador Circular de Progreso del Rezo
+   ========================================================================== */
+
+.counter-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin: 1.25rem 0;
+}
+
+.progress-ring-container {
+  position: relative;
+  width: 260px;
+  height: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.progress-ring {
+  display: block;
+}
+
+.sacred-cross-icon {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.progress-ring-track {
+  stroke: var(--progress-track);
+  stroke-width: 10;
+  fill: transparent;
+  transition: stroke 0.3s ease;
+}
+
+.progress-ring-circle {
+  stroke: var(--progress-fill);
+  stroke-width: 10;
+  stroke-linecap: round;
+  fill: transparent;
+  transition: stroke-dashoffset 0.35s ease, stroke 0.3s ease;
+  filter: drop-shadow(0 0 6px var(--progress-glow));
+}
+
+.counter-inner-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1.5rem;
+  border-radius: 50%;
+  background: var(--bg-counter);
+  margin: auto;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.counter-number {
+  font-family: var(--font-sans);
+  font-size: 3.5rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--accent-primary);
+  margin-bottom: 0.15rem;
+  letter-spacing: -0.03em;
+  transition: transform 0.15s ease;
+}
+
+.counter-number.bump {
+  transform: scale(1.1);
+}
+
+.counter-target-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.mystery-badge {
+  background: var(--bg-badge);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.775rem;
+  font-weight: 600;
+  margin-top: 0.4rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+/* Barra de progreso de apoyo */
+.mini-progress-track {
+  width: 100%;
+  max-width: 380px;
+  height: 6px;
+  background-color: var(--progress-track);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 0.5rem;
+}
+
+.mini-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-gold), var(--accent-primary));
+  border-radius: 10px;
+  transition: width 0.3s ease;
+}
+
+/* ==========================================================================
+   Botón Principal de Cuenta y Controles
+   ========================================================================== */
+
+.btn-count-main {
+  background: var(--accent-primary);
+  color: #ffffff !important;
+  font-family: var(--font-sans);
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  padding: 1.1rem 2.5rem;
+  border-radius: 60px;
+  border: none;
+  box-shadow: var(--shadow-count);
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  min-width: 220px;
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.btn-count-main:hover {
+  background: var(--accent-primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px var(--accent-primary-glow);
+}
+
+.btn-count-main:active {
+  transform: scale(0.96) translateY(1px);
+  box-shadow: 0 4px 12px var(--accent-primary-glow);
+}
+
+.btn-count-main:disabled {
+  background: #6c757d;
+  box-shadow: none;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Botones secundarios (Deshacer, Reiniciar, etc.) */
+.control-btn {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  border-radius: 12px;
+  padding: 0.6rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  transition: all 0.2s ease;
+}
+
+.control-btn:hover {
+  background: var(--accent-gold-soft);
+  border-color: var(--accent-gold);
+  color: var(--text-main);
+}
+
+.control-btn:active {
+  transform: scale(0.97);
+}
+
+/* ==========================================================================
+   Componente de Oraciones y Mensajes Litúrgicos
+   ========================================================================== */
+
+.devotional-prayer-card {
+  position: relative;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-left: 5px solid var(--accent-gold);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.35s ease;
+}
+
+.devotional-prayer-card.highlight {
+  border-left-color: var(--accent-primary);
+  animation: pulseCard 1s ease;
+}
+
+@keyframes pulseCard {
+  0% { transform: scale(0.99); }
+  50% { transform: scale(1.01); }
+  100% { transform: scale(1); }
+}
+
+.prayer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.prayer-category-tag {
+  font-family: var(--font-serif-title);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--text-gold);
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.prayer-body-text {
+  font-family: var(--font-serif-body);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--text-main);
+  font-style: italic;
+  margin-bottom: 0.75rem;
+}
+
+.prayer-footer-hint {
+  font-size: 0.825rem;
+  color: var(--text-muted);
+  border-top: 1px dashed var(--border-color);
+  padding-top: 0.6rem;
+  margin-top: 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* Tarjeta de Felicitación / Cierre 1000 */
+.completion-banner {
+  background: linear-gradient(135deg, rgba(197, 160, 89, 0.2), rgba(133, 45, 33, 0.15));
+  border: 2px solid var(--accent-gold);
+  border-radius: 18px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+}
+
+.completion-icon {
+  font-size: 3rem;
+  color: var(--accent-gold);
+  margin-bottom: 0.5rem;
+  animation: bounceSlow 2s infinite ease-in-out;
+}
+
+@keyframes bounceSlow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* ==========================================================================
+   Selectores de Configuración y Opciones
+   ========================================================================== */
+
+.settings-box {
+  background: var(--bg-badge);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 0.75rem 1rem;
+}
+
+.custom-select {
+  background-color: var(--bg-card);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 0.35rem 0.65rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  outline: none;
+}
+
+.custom-select:focus {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 2px var(--accent-primary-glow);
+}
+
+/* ==========================================================================
+   Modales y Guía de Oración
+   ========================================================================== */
+
+.modal-content {
+  background: var(--bg-card);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  box-shadow: var(--shadow-lg);
+}
+
+.modal-header {
+  border-bottom: 1px solid var(--border-color);
+  padding: 1.25rem 1.5rem;
+}
+
+.modal-footer {
+  border-top: 1px solid var(--border-color);
+  padding: 1rem 1.5rem;
+}
+
+.nav-tabs .nav-link {
+  color: var(--text-muted);
+  font-weight: 600;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 0.6rem 1rem;
+  transition: all 0.2s ease;
+}
+
+.nav-tabs .nav-link.active {
+  color: var(--accent-primary);
+  background: transparent;
+  border-bottom: 2px solid var(--accent-primary);
+}
+
+.guide-step-number {
+  width: 28px;
+  height: 28px;
+  background: var(--accent-primary);
+  color: #fff;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  margin-right: 0.5rem;
+  flex-shrink: 0;
+}
+
+.prayer-box-full {
+  background: var(--bg-counter);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.prayer-box-title {
+  font-family: var(--font-serif-title);
+  color: var(--accent-primary);
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.prayer-box-text {
+  font-family: var(--font-serif-body);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--text-main);
+  margin-bottom: 0;
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+
+.app-footer {
+  margin-top: auto;
+  padding: 2rem 0;
+  background: var(--bg-card);
+  border-top: 1px solid var(--border-color);
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.app-footer a {
+  color: var(--text-muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.app-footer a:hover {
+  color: var(--accent-primary);
+}
+
+/* ==========================================================================
+   Responsividad & Ajustes Móviles
+   ========================================================================== */
+
+@media (max-width: 767.98px) {
+  .app-card {
+    padding: 1.25rem 1rem;
+  }
+
+  .devotional-hero-title {
+    font-size: 1.65rem;
+  }
+
+  .devotional-hero-quote {
+    font-size: 0.875rem;
+  }
+
+  .progress-ring-container {
+    width: 220px;
+    height: 220px;
+  }
+
+  .progress-ring {
+    width: 220px;
+    height: 220px;
+  }
+
+  .counter-number {
+    font-size: 2.75rem;
+  }
+
+  .btn-count-main {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    font-size: 1.25rem;
+  }
 }

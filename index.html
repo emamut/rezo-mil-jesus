@@ -1,27 +1,48 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-bs-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Rezo de los Mil Jesús - emamut</title>
+    <title>Rezo de los Mil Jesús - Devoción de la Santa Cruz</title>
+    <meta
+      name="description"
+      content="Aplicación interactiva y devocional para el Rezo de los Mil Jesús en el Día de la Santa Cruz (3 de mayo). Contador litúrgico, oraciones tradicionales y guía completa."
+    />
+    <meta name="theme-color" content="#852d21" />
+
+    <!-- Open Graph / Redes Sociales -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Rezo de los Mil Jesús - Devoción de la Santa Cruz" />
+    <meta
+      property="og:description"
+      content="Acompañamiento devocional para rezar los Mil Jesús: contador interactivo, oraciones, campana litúrgica y guía espiritual."
+    />
+    <meta property="og:image" content="./assets/img/logo.png" />
+
+    <!-- Bootstrap 5.3 CSS -->
     <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
-      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     />
+
+    <!-- Bootstrap Icons -->
     <link
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
     />
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Merriweather&family=Roboto:wght@400;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
 
+    <!-- Estilos Personalizados -->
     <link rel="stylesheet" href="./assets/css/styles.css" />
 
     <!-- Google tag (gtag.js) -->
@@ -35,107 +56,661 @@
         dataLayer.push(arguments);
       }
       gtag('js', new Date());
-
       gtag('config', 'G-BNZ8LENY88');
     </script>
   </head>
   <body>
-    <div class="container d-flex flex-column" id="app" v-cloak>
-      <div class="row mt-md-5">
-        <div class="col-md-6 text-center">
-          <img src="/assets/img/logo.png" alt="" class="img-fluid" />
-        </div>
-        <div class="col-md-6">
-          <div class="row justify-content-center mt-4">
-            <div class="col">
-              <p>
-                Esta devoción consiste en invocar el Nombre de Jesús mil veces
-                para derrotar de las casas a las huestes del mal.
-              </p>
-              <div class="d-inline-flex flex-row w-75">
-                <strong>Elija cada cuanto aparecen las oraciones</strong>&nbsp;
-                <select v-model="each" class="form-select form-select-sm w-25">
-                  <option value="10">10</option>
-                  <option value="20">20</option>
-                  <option value="30">30</option>
-                  <option value="40">40</option>
-                  <option value="50">50</option>
-                  <option value="60">60</option>
-                  <option value="70">70</option>
-                  <option value="80">80</option>
-                  <option value="90">90</option>
-                  <option value="100">100</option>
-                </select>
+    <div id="app" v-cloak class="d-flex flex-column min-vh-100">
+      <!-- Barra Superior de Navegación -->
+      <header class="app-navbar">
+        <div class="container d-flex align-items-center justify-content-between">
+          <div class="d-flex align-items-center gap-2">
+            <svg
+              class="sacred-cross-icon text-primary d-none d-sm-inline"
+              width="22"
+              height="26"
+              viewBox="0 0 24 28"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                d="M10 2a2 2 0 0 1 4 0v6h6a2 2 0 1 1 0 4h-6v14a2 2 0 1 1-4 0V12H4a2 2 0 1 1 0-4h6V2z"
+              />
+            </svg>
+            <div>
+              <div class="nav-brand-title">
+                <i class="bi bi-flower1 d-inline d-sm-none"></i>
+                Rezo de los Mil Jesús
+              </div>
+              <div class="nav-brand-subtitle d-none d-md-block">
+                Devoción de la Santa Cruz · 3 de Mayo
               </div>
             </div>
           </div>
-          <div class="row justify-content-center mt-5">
-            <div class="col-md-6 text-center">
-              <h2>{{ count }} <span class="text-muted fs-5">Jesús</span></h2>
-            </div>
+
+          <div class="d-flex align-items-center gap-2">
+            <!-- Botón Guía -->
+            <button
+              type="button"
+              class="nav-action-btn"
+              @click="openGuideModal('steps')"
+              title="Guía y oraciones completas"
+            >
+              <i class="bi bi-book-half"></i>
+              <span class="d-none d-sm-inline">Guía</span>
+            </button>
+
+            <!-- Botón Sonido -->
+            <button
+              type="button"
+              class="nav-action-btn"
+              :class="{ active: soundEnabled }"
+              @click="toggleSound"
+              :title="soundEnabled ? 'Silenciar campanilla' : 'Activar campanilla'"
+            >
+              <i :class="soundEnabled ? 'bi bi-volume-up-fill text-primary' : 'bi bi-volume-mute-fill text-muted'"></i>
+              <span class="d-none d-md-inline">{{ soundEnabled ? 'Campana' : 'Silencio' }}</span>
+            </button>
+
+            <!-- Botón Modo Noche / Vela -->
+            <button
+              type="button"
+              class="nav-action-btn"
+              @click="toggleTheme"
+              :title="isDark ? 'Cambiar a modo claro' : 'Cambiar a modo noche (vela)'"
+            >
+              <i :class="isDark ? 'bi bi-sun-fill text-warning' : 'bi bi-moon-stars-fill'"></i>
+              <span class="d-none d-md-inline">{{ isDark ? 'Luz' : 'Vela' }}</span>
+            </button>
           </div>
-          <div class="row mt-4">
-            <div class="col text-center">
-              <button
-                class="btn btn-primary btn-lg"
-                @click="count++"
-                v-if="count < 1000"
+        </div>
+      </header>
+
+      <!-- Contenido Principal Centrado -->
+      <main class="container my-auto py-4">
+        <div class="main-prayer-container">
+          <!-- Cabecera Devocional / Hero sin imagen -->
+          <div class="devotional-hero">
+            <div class="sacred-cross-emblem" aria-hidden="true">
+              <svg
+                class="sacred-cross-icon"
+                width="28"
+                height="32"
+                viewBox="0 0 24 28"
+                fill="currentColor"
               >
-                {{count == 0 ? 'Iniciar' : 'Contar'}}
+                <path
+                  d="M10 2a2 2 0 0 1 4 0v6h6a2 2 0 1 1 0 4h-6v14a2 2 0 1 1-4 0V12H4a2 2 0 1 1 0-4h6V2z"
+                />
+              </svg>
+            </div>
+            <h1 class="devotional-hero-title">Rezo de los Mil Jesús</h1>
+            <div class="devotional-hero-subtitle">
+              Devoción de la Santa Cruz · 3 de Mayo
+            </div>
+            <p class="devotional-hero-quote">
+              "Santísima Cruz, mi abogada has de ser; en la vida y en la muerte me has de favorecer."
+            </p>
+            <div class="d-inline-flex flex-wrap justify-content-center gap-2 mb-2">
+              <button
+                type="button"
+                class="btn btn-sm btn-outline-secondary rounded-pill px-3"
+                @click="openGuideModal('steps')"
+              >
+                <i class="bi bi-book-half me-1 text-gold"></i> Cómo rezarlo paso a paso
               </button>
               <button
-                class="btn btn-outline-secondary btn-lg ms-3"
-                @click="restartPray()"
+                type="button"
+                class="btn btn-sm btn-outline-secondary rounded-pill px-3"
+                @click="openGuideModal('history')"
               >
-                Reiniciar
+                <i class="bi bi-info-circle me-1"></i> Historia
               </button>
             </div>
           </div>
-          <div class="row justify-content-center mt-4">
-            <div class="col">
+
+          <!-- Tarjeta Central del Contador y Oraciones -->
+          <div class="app-card">
+            <!-- Selector de Intervalo y Estado -->
+            <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3 settings-box">
+              <div class="d-flex align-items-center gap-2">
+                <label for="eachSelect" class="small fw-bold mb-0">
+                  <i class="bi bi-sliders me-1 text-gold"></i> Oración cada:
+                </label>
+                <select
+                  id="eachSelect"
+                  v-model.number="each"
+                  class="custom-select"
+                  :disabled="isAutoPlaying"
+                >
+                  <option :value="10">10 cuentas (Decena)</option>
+                  <option :value="20">20 cuentas</option>
+                  <option :value="25">25 cuentas</option>
+                  <option :value="50">50 cuentas (1 Rosario / Misterio)</option>
+                  <option :value="100">100 cuentas (Centena)</option>
+                </select>
+              </div>
+              <div class="small text-muted fw-semibold">
+                <span class="badge bg-secondary-subtle text-secondary-emphasis rounded-pill px-2 py-1">
+                  {{ totalMysteries }} intervalos
+                </span>
+              </div>
+            </div>
+
+            <!-- Escenario del Contador Circular -->
+            <div class="counter-stage">
+              <div class="progress-ring-container">
+                <svg
+                  class="progress-ring"
+                  width="260"
+                  height="260"
+                  viewBox="0 0 260 260"
+                >
+                  <g transform="rotate(-90 130 130)">
+                    <!-- Círculo de fondo -->
+                    <circle
+                      class="progress-ring-track"
+                      cx="130"
+                      cy="130"
+                      :r="radius"
+                    />
+                    <!-- Círculo de progreso dinámico -->
+                    <circle
+                      class="progress-ring-circle"
+                      cx="130"
+                      cy="130"
+                      :r="radius"
+                      :stroke-dasharray="circumference"
+                      :stroke-dashoffset="strokeDashoffset"
+                    />
+                  </g>
+                </svg>
+
+                <!-- Contenido Central del Círculo -->
+                <div class="counter-inner-content">
+                  <div
+                    class="counter-number font-cinzel"
+                    :class="{ bump: bumpAnimation }"
+                  >
+                    {{ count }}
+                  </div>
+                  <div class="counter-target-label">
+                    de 1.000 Jesús
+                  </div>
+                  <div class="mystery-badge">
+                    <template v-if="count === 0">
+                      <i class="bi bi-clock"></i> Por comenzar
+                    </template>
+                    <template v-else-if="count >= 1000">
+                      <i class="bi bi-check-circle-fill text-success"></i> Completado
+                    </template>
+                    <template v-else>
+                      <i class="bi bi-circle-fill text-danger" style="font-size: 0.55rem;"></i>
+                      Misterio {{ currentMystery }}/{{ totalMysteries }} ({{ beadsInCurrentMystery }}/{{ each }})
+                    </template>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Barra lineal de apoyo visual -->
+              <div class="mini-progress-track">
+                <div
+                  class="mini-progress-fill"
+                  :style="{ width: progressPercent + '%' }"
+                ></div>
+              </div>
+              <div class="small text-muted mt-2 fw-semibold">
+                Progreso total: {{ progressPercent }}%
+              </div>
+            </div>
+
+            <!-- Controles Principales de Conteo -->
+            <div class="text-center my-3">
+              <!-- Botón Principal -->
+              <button
+                type="button"
+                class="btn-count-main"
+                @click="increment"
+                :disabled="count >= 1000"
+                title="Presiona para contar una invocación a Jesús (o pulsa la barra espaciadora)"
+              >
+                <i
+                  class="bi"
+                  :class="count === 0 ? 'bi-play-fill' : (count >= 1000 ? 'bi-check-all' : 'bi-plus-circle-fill')"
+                ></i>
+                <span>{{ buttonText }}</span>
+              </button>
+
+              <!-- Barra de Acciones Secundarias -->
+              <div class="d-flex justify-content-center align-items-center gap-2 mt-3">
+                <!-- Botón Deshacer (-1) -->
+                <button
+                  type="button"
+                  class="control-btn"
+                  @click="decrement"
+                  :disabled="count === 0"
+                  title="Deshacer una cuenta en caso de toque accidental (Flecha abajo / Borrar)"
+                >
+                  <i class="bi bi-arrow-counterclockwise"></i>
+                  <span>-1</span>
+                </button>
+
+                <!-- Botón Manos Libres / Auto -->
+                <button
+                  type="button"
+                  class="control-btn"
+                  :class="{ 'btn-warning text-dark': isAutoPlaying }"
+                  @click="toggleAutoPlay"
+                  :disabled="count >= 1000"
+                  :title="isAutoPlaying ? 'Pausar avance automático (P)' : 'Iniciar rezo manos libres automático (P)'"
+                >
+                  <i :class="isAutoPlaying ? 'bi bi-pause-fill' : 'bi bi-play-circle'"></i>
+                  <span>{{ isAutoPlaying ? 'Pausar' : 'Auto' }}</span>
+                </button>
+
+                <!-- Botón Reiniciar -->
+                <button
+                  type="button"
+                  class="control-btn"
+                  @click="promptRestart"
+                  :disabled="count === 0"
+                  title="Reiniciar el rezo a 0 (R)"
+                >
+                  <i class="bi bi-arrow-repeat"></i>
+                  <span>Reiniciar</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Tarjeta de Oraciones Intermedias / Componente Vue -->
+            <div class="mt-3">
               <messages-component
                 :count="count"
                 :each="each"
+                @open-guide="openGuideModal"
+                @restart="confirmRestart"
               ></messages-component>
+            </div>
+          </div>
+
+          <!-- Pie del Contenedor Central: Atajos y Nota -->
+          <div class="d-flex flex-wrap justify-content-between align-items-center text-muted small px-2 mt-3 gap-2">
+            <span>
+              <i class="bi bi-shield-check text-gold me-1"></i> Devoción para la protección y paz del hogar
+            </span>
+            <button
+              type="button"
+              class="btn btn-sm btn-link text-decoration-none p-0 text-muted"
+              @click="openGuideModal('shortcuts')"
+            >
+              <i class="bi bi-keyboard me-1"></i> Atajos de teclado
+            </button>
+          </div>
+        </div>
+      </main>
+
+      <!-- Pie de Página -->
+      <footer class="app-footer">
+        <div class="container text-center">
+          <p class="mb-2">
+            Elaborado con <i class="bi bi-heart-fill text-danger"></i> por
+            <a href="https://www.emamut.dev" target="_blank" rel="noopener">emamut</a>
+            &nbsp;·&nbsp; Código abierto en
+            <a href="https://github.com/emamut/rezo-mil-jesus" target="_blank" rel="noopener">
+              <i class="bi bi-github"></i> GitHub
+            </a>
+          </p>
+          <div class="small">
+            <strong>Fuentes devocionales:</strong>
+            <a
+              href="https://www.eluniversal.com.co/cultural/hoy-es-el-dia-de-la-santa-cruz-esta-es-la-historia-de-los-mil-jesus-CK1095040"
+              target="_blank"
+              rel="noopener"
+            >
+              El Universal
+            </a>
+            &nbsp;·&nbsp;
+            <a
+              href="https://www.organizacionlaesperanza.com/blog/3-de-mayo-dia-de-la-santa-cruz/"
+              target="_blank"
+              rel="noopener"
+            >
+              Organización La Esperanza
+            </a>
+          </div>
+        </div>
+      </footer>
+
+      <!-- Modal de Guía Devocional y Oraciones -->
+      <div
+        class="modal fade"
+        id="guideModal"
+        tabindex="-1"
+        aria-labelledby="guideModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title font-cinzel fw-bold" id="guideModalLabel">
+                <i class="bi bi-book-half text-gold me-2"></i>
+                Guía del Rezo de los Mil Jesús
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Cerrar"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <!-- Pestañas de Navegación de la Guía -->
+              <ul class="nav nav-tabs mb-4" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button
+                    class="nav-link"
+                    :class="{ active: activeGuideTab === 'steps' }"
+                    @click="activeGuideTab = 'steps'"
+                    type="button"
+                  >
+                    <i class="bi bi-list-ol me-1"></i> Paso a Paso
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button
+                    class="nav-link"
+                    :class="{ active: activeGuideTab === 'prayers' }"
+                    @click="activeGuideTab = 'prayers'"
+                    type="button"
+                  >
+                    <i class="bi bi-flower1 me-1"></i> Oraciones
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button
+                    class="nav-link"
+                    :class="{ active: activeGuideTab === 'home-prayer' }"
+                    @click="activeGuideTab = 'home-prayer'"
+                    type="button"
+                  >
+                    <i class="bi bi-house-heart me-1"></i> Para el Hogar
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button
+                    class="nav-link"
+                    :class="{ active: activeGuideTab === 'history' }"
+                    @click="activeGuideTab = 'history'"
+                    type="button"
+                  >
+                    <i class="bi bi-bank me-1"></i> Historia
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button
+                    class="nav-link"
+                    :class="{ active: activeGuideTab === 'shortcuts' }"
+                    @click="activeGuideTab = 'shortcuts'"
+                    type="button"
+                  >
+                    <i class="bi bi-keyboard me-1"></i> Atajos
+                  </button>
+                </li>
+              </ul>
+
+              <!-- Contenido de las pestañas -->
+              <div class="tab-content">
+                <!-- 1. Paso a Paso -->
+                <div v-show="activeGuideTab === 'steps'">
+                  <div class="d-flex align-items-start mb-3">
+                    <span class="guide-step-number">1</span>
+                    <div>
+                      <h6 class="fw-bold mb-1 font-cinzel">Preparación del Altar</h6>
+                      <p class="small text-muted mb-0">
+                        Se aconseja colocar en el hogar una cruz adornada con flores (lirios o rosas),
+                        un mantel blanco o morado, una vela o cirio encendido y, de ser posible, agua bendita.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="d-flex align-items-start mb-3">
+                    <span class="guide-step-number">2</span>
+                    <div>
+                      <h6 class="fw-bold mb-1 font-cinzel">Rito de Apertura</h6>
+                      <p class="small text-muted mb-0">
+                        Persígnate con la señal de la Santa Cruz. Formula en silencio tu intención
+                        o la gracia que pides para tu familia. Reza con devoción el <strong>Acto de Contrición</strong>
+                        y un <strong>Padre Nuestro</strong>.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="d-flex align-items-start mb-3">
+                    <span class="guide-step-number">3</span>
+                    <div>
+                      <h6 class="fw-bold mb-1 font-cinzel">Invocación de los Mil Jesús</h6>
+                      <p class="small text-muted mb-0">
+                        Se dan 20 vueltas al rosario tradicional (cada vuelta son 50 cuentas).
+                        Al comenzar cada misterio, se recita la oración de la Santa Cruz ("Santísima Cruz, mi abogada has de ser...").
+                        Luego se repite el Santo Nombre: <em>"Jesús, Jesús, Jesús..."</em> durante las 50 cuentas.
+                        Al terminar cada 50, se reza un <strong>Padre Nuestro</strong> y un <strong>Gloria</strong>.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="d-flex align-items-start mb-3">
+                    <span class="guide-step-number">4</span>
+                    <div>
+                      <h6 class="fw-bold mb-1 font-cinzel">Cierre y Bendición</h6>
+                      <p class="small text-muted mb-0">
+                        Al completar las 1.000 invocaciones, se reza con gratitud la <strong>Oración Final de la Santa Cruz</strong>
+                        y la oración de bendición y protección para el hogar.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 2. Oraciones Completas -->
+                <div v-show="activeGuideTab === 'prayers'">
+                  <!-- Acto de Contrición -->
+                  <div class="prayer-box-full">
+                    <div class="prayer-box-title">Acto de Contrición</div>
+                    <p class="prayer-box-text">
+                      "Señor mío Jesucristo, Dios y Hombre verdadero, Creador, Padre y Redentor mío; por ser Vos quien sois, bondad infinita, y porque os amo sobre todas las cosas, me pesa de todo corazón haberos ofendido. También me pesa porque podéis castigarme con las penas del infierno. Ayudado de vuestra divina gracia, propongo firmemente nunca más pecar, confesarme y cumplir la penitencia que me fuere impuesta. Amén."
+                    </p>
+                  </div>
+
+                  <!-- Padre Nuestro -->
+                  <div class="prayer-box-full">
+                    <div class="prayer-box-title">Padre Nuestro</div>
+                    <p class="prayer-box-text">
+                      "Padre nuestro, que estás en el cielo, santificado sea tu Nombre; venga a nosotros tu reino; hágase tu voluntad en la tierra como en el cielo. Danos hoy nuestro pan de cada día; perdona nuestras ofensas, como también nosotros perdonamos a los que nos ofenden; no nos dejes caer en la tentación, y líbranos del mal. Amén."
+                    </p>
+                  </div>
+
+                  <!-- Gloria -->
+                  <div class="prayer-box-full">
+                    <div class="prayer-box-title">Gloria al Padre</div>
+                    <p class="prayer-box-text">
+                      "Gloria al Padre y al Hijo y al Espíritu Santo. Como era en el principio, ahora y siempre, por los siglos de los siglos. Amén."
+                    </p>
+                  </div>
+
+                  <!-- Las 4 Oraciones Rotativas -->
+                  <h6 class="font-cinzel fw-bold mt-4 mb-2 text-gold">Las 4 Oraciones de la Santa Cruz (Misterios)</h6>
+
+                  <div class="prayer-box-full">
+                    <div class="fw-bold small text-muted mb-1">Oración 1</div>
+                    <p class="prayer-box-text">
+                      "Santísima Cruz, mi abogada has de ser, en la vida y en la muerte me has de favorecer. Si a la hora de mi muerte el demonio me tentare, le diré: Satanás, Satanás, conmigo no contarás ni tendrás parte en mi alma, porque dije mil veces Jesús."
+                    </p>
+                  </div>
+
+                  <div class="prayer-box-full">
+                    <div class="fw-bold small text-muted mb-1">Oración 2</div>
+                    <p class="prayer-box-text">
+                      "Renuncia Satanás, que conmigo no contarás, porque el Día de la Santa Cruz dije mil veces: Jesús."
+                    </p>
+                  </div>
+
+                  <div class="prayer-box-full">
+                    <div class="fw-bold small text-muted mb-1">Oración 3</div>
+                    <p class="prayer-box-text">
+                      "Si a la hora de mi muerte el demonio me tentare, le diré que no tiene parte de mí, porque el Día de la Santa Cruz dije mil veces: Jesús."
+                    </p>
+                  </div>
+
+                  <div class="prayer-box-full">
+                    <div class="fw-bold small text-muted mb-1">Oración 4</div>
+                    <p class="prayer-box-text">
+                      "Satanás a mi casa no entrarás, en nuestros corazones no reinarás, porque el Día de la Santa Cruz diremos mil veces: Jesús, Jesús."
+                    </p>
+                  </div>
+                </div>
+
+                <!-- 3. Para el Hogar (Oración Final) -->
+                <div v-show="activeGuideTab === 'home-prayer'">
+                  <div class="prayer-box-full">
+                    <div class="prayer-box-title">Oración Final de la Santa Cruz</div>
+                    <p class="prayer-box-text">
+                      "Te adoramos, oh Cristo, y te bendecimos, que por tu Santa Cruz redimiste al mundo. ¡Jesús, Jesús, Jesucristo! ¡Oh Jesús, mi Jesús por siempre! Jesús, Jesús en mi vida, Jesús, Jesús en mi muerte. Dulce Jesús, sé mi Jesús y sálvanos. Amén."
+                    </p>
+                  </div>
+
+                  <div class="prayer-box-full">
+                    <div class="prayer-box-title">Oración de Bendición para el Hogar y la Familia</div>
+                    <p class="prayer-box-text">
+                      "Oh Dios, que al recordar hoy el hallazgo de la verdadera Cruz de tu amado Hijo, renovaste los milagros y portentos de su redención: concédenos que por este sagrado madero alcance nuestra casa paz, salud, concordia y protección perpetua contra toda perturbación del mal. Por Jesucristo nuestro Señor, que vive y reina contigo por los siglos de los siglos. Amén."
+                    </p>
+                  </div>
+                </div>
+
+                <!-- 4. Historia y Tradición -->
+                <div v-show="activeGuideTab === 'history'">
+                  <h6 class="font-cinzel fw-bold text-gold mb-2">El 3 de Mayo: Día de la Santa Cruz</h6>
+                  <p class="small text-muted font-merriweather">
+                    La conmemoración de la Santa Cruz el 3 de mayo tiene su raíz en el año 326 d.C., cuando Santa Elena,
+                    madre del emperador Constantino, encontró en Jerusalén la Cruz en la que murió Jesucristo.
+                  </p>
+                  <p class="small text-muted font-merriweather">
+                    En Colombia, España y gran parte de Hispanoamérica, se consolidó la devoción popular de los
+                    <strong>Mil Jesús</strong>: una vigilia de fe en la que las familias se reúnen frente a una cruz adornada con flores
+                    para clamar el Nombre de Jesús como escudo protector contra las fuerzas del mal, atrayendo la paz,
+                    la sanación y la concordia a cada rincón del hogar.
+                  </p>
+                </div>
+
+                <!-- 5. Atajos de Teclado -->
+                <div v-show="activeGuideTab === 'shortcuts'">
+                  <p class="small text-muted mb-3">
+                    Puedes rezar cómodamente en tu computador o laptop usando estas teclas sin necesidad de hacer clic:
+                  </p>
+                  <table class="table table-sm table-bordered">
+                    <thead>
+                      <tr>
+                        <th>Acción</th>
+                        <th>Tecla</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><strong>Contar (+1 Jesús)</strong></td>
+                        <td><kbd>Espacio</kbd>, <kbd>Enter</kbd> o <kbd>&uarr;</kbd></td>
+                      </tr>
+                      <tr>
+                        <td><strong>Deshacer (-1)</strong></td>
+                        <td><kbd>Borrar</kbd> o <kbd>&darr;</kbd></td>
+                      </tr>
+                      <tr>
+                        <td><strong>Rezo Manos Libres (Auto)</strong></td>
+                        <td><kbd>P</kbd></td>
+                      </tr>
+                      <tr>
+                        <td><strong>Silenciar / Campana</strong></td>
+                        <td><kbd>M</kbd></td>
+                      </tr>
+                      <tr>
+                        <td><strong>Modo Noche / Vela</strong></td>
+                        <td><kbd>D</kbd></td>
+                      </tr>
+                      <tr>
+                        <td><strong>Reiniciar a cero</strong></td>
+                        <td><kbd>R</kbd></td>
+                      </tr>
+                      <tr>
+                        <td><strong>Abrir esta Guía</strong></td>
+                        <td><kbd>?</kbd> o <kbd>H</kbd></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary rounded-pill px-4"
+                data-bs-dismiss="modal"
+              >
+                Cerrar
+              </button>
             </div>
           </div>
         </div>
       </div>
 
-      <footer class="row justify-content-center bg-light mt-auto py-4">
-        <div class="col-md-10 text-center">
-          <p class="text-muted">
-            <small
-              >Elaborado con <i class="bi bi-heart-fill"></i> por
-              <a href="https://www.emamut.dev" target="_blank">emamut</a>&nbsp;
-              <i class="bi bi-dot"></i> Apóyanos en
-              <i class="bi bi-github"></i>&nbsp;
-              <a href="https://github.com/emamut/rezo-mil-jesus" target="_blank"
-                >Github</a
+      <!-- Modal de Confirmación para Reiniciar -->
+      <div
+        class="modal fade"
+        id="resetModal"
+        tabindex="-1"
+        aria-labelledby="resetModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+          <div class="modal-content text-center p-3">
+            <div class="modal-body">
+              <i class="bi bi-exclamation-triangle text-warning display-5 mb-3"></i>
+              <h5 class="fw-bold font-cinzel">¿Reiniciar el rezo?</h5>
+              <p class="small text-muted mb-0">
+                Se restablecerá la cuenta actual ({{ count }}) a cero.
+              </p>
+            </div>
+            <div class="d-flex justify-content-center gap-2 mt-2">
+              <button
+                type="button"
+                class="btn btn-sm btn-outline-secondary rounded-pill px-3"
+                data-bs-dismiss="modal"
               >
-            </small>
-          </p>
-          <small class="text-muted"
-            ><strong>Fuentes: </strong>
-            <a
-              href="https://www.eluniversal.com.co/cultural/hoy-es-el-dia-de-la-santa-cruz-esta-es-la-historia-de-los-mil-jesus-CK1095040"
-              target="_blank"
-              >El Universal</a
-            >
-            //
-            <a
-              href="https://www.organizacionlaesperanza.com/blog/3-de-mayo-dia-de-la-santa-cruz/"
-              target="_blank"
-              >Organización La Esperanza</a
-            >
-          </small>
+                Cancelar
+              </button>
+              <button
+                type="button"
+                class="btn btn-sm btn-danger rounded-pill px-3"
+                @click="confirmRestart"
+              >
+                Sí, reiniciar
+              </button>
+            </div>
+          </div>
         </div>
-      </footer>
+      </div>
     </div>
+
+    <!-- Bootstrap 5.3 JS Bundle con Popper -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Vue 3 -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+
+    <!-- Componente de Oraciones -->
+    <script src="./assets/js/components/messagesComponent.js"></script>
+
+    <!-- Aplicación Principal -->
+    <script src="./assets/js/app.js"></script>
   </body>
-  <script src="https://unpkg.com/vue@3"></script>
-
-  <script src="./assets/js/components/messagesComponent.js"></script>
-
-  <script src="./assets/js/app.js"></script>
 </html>
